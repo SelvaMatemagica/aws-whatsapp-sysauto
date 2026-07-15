@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+httpx[http2]
+pg8000
+redis>=4.5.0
+pytest
+pytest-asyncio
+pydantic
+pydantic-settings
+anyio
+python-dotenv
+python-multipart
+requests
+python-jose[cryptography]
+boto3
