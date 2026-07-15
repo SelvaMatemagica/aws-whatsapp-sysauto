@@ -22,15 +22,28 @@ jobs:
           zip -r ../aws-whatsapp-sysauto.zip .
 
       - name: 🔐 Configurar credenciales AWS (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::376572378022:role/Github_link_aws_whatsapp_sysauto
           aws-region: us-east-2
-          audience: sts.amazonaws.com
+
+      - name: 🔍 Validar existencia del zip
+        run: |
+          if [ ! -f aws-whatsapp-sysauto.zip ]; then 
+            echo "❌ Zip no encontrado"
+            exit 1
+          fi
 
       - name: 🚀 Subir a Lambda
         run: |
+          set -euo pipefail
+          trap 'echo "⚠️ Error en línea $LINENO"; exit 1' ERR
+
+          echo "📤 Desplegando función aws-whatsapp-sysauto..."
           aws lambda update-function-code \
             --function-name aws-whatsapp-sysauto \
             --zip-file fileb://aws-whatsapp-sysauto.zip \
             --region us-east-2
+
+      - name: 📝 Registrar despliegue
+        run: echo "✅ Desplegado por ${{ github.actor }} con commit ${{ github.sha }}"
