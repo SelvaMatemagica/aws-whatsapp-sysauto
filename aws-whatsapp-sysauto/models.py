@@ -15,7 +15,7 @@ class SendRequestForm:
         file: Optional[UploadFile] = File(None),
         message_id: Optional[str] = Form(None),
     ):
-        self.to = to
+        self.to = to 
         self.type = type
         self.body = body
         self.account_id = account_id
