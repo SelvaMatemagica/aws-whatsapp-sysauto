@@ -27,7 +27,7 @@ IMPORT_ERRORS: dict[str, str] = {}
 
 try:
     from auth import verify_account_permission
-except Exception as exc:
+except Exception as exc: 
     verify_account_permission = None 
     IMPORT_ERRORS["auth"] = str(exc)
 
