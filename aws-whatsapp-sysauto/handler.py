@@ -19,7 +19,7 @@ if str(ROOT) not in sys.path:
 if str(VENDOR_ROOT) not in sys.path:
     sys.path.insert(0, str(VENDOR_ROOT))
 
-import boto3    
+import boto3     
 
 from jose import jwt 
 
